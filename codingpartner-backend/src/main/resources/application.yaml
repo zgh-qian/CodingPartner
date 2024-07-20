@@ -1,0 +1,80 @@
+spring:
+  application:
+    name: codingparnter-backend
+  # 默认 dev 环境
+  profiles:
+    active: dev
+  # 支持 swagger3
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  # session 配置
+  session:
+    # 30 天过期
+    timeout: 2592000
+    store-type: redis
+  # 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/codingparnter_db
+    username: root
+    password: 123456
+  # Redis 配置
+  redis:
+    database: 1
+    host: 127.0.0.1
+    port: 6379
+    timeout: 5000
+  #    password: 123456
+  # rabbitmq 配置
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  servlet:
+    multipart:
+      # 大小限制
+      max-file-size: 10MB
+server:
+  address: 0.0.0.0
+  port: 8181
+  servlet:
+    context-path: /api
+    # cookie 30 天过期
+    session:
+      cookie:
+        max-age: 2592000
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true # 开启驼峰命名规则
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      # 全局逻辑删除的实体字段名
+      logic-delete-field: is_delete
+      # 逻辑已删除值（默认为 1）
+      logic-delete-value: 1
+      # 逻辑未删除值（默认为 0）
+      logic-not-delete-value: 0
+# 代码沙箱配置
+codesandbox:
+  # 代码沙箱类型
+  type: default
+  # 实现方式
+  implementation: native
+  # 远程地址
+  url: http://localhost:port/api/codesandbox/execute
+  # 工厂模式
+  factory: singleton
+# 接口文档配置
+knife4j:
+  enable: true
+  openapi:
+    title: "codingpartner-backend接口文档"
+    version: 1.0
+    group:
+      default:
+        api-rule: package
+        api-rule-resources:
+          - com.codingpartner.codingpartnerbackend.controller
